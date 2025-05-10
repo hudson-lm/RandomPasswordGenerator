@@ -43,6 +43,12 @@ const DescWrapper = styled.div`
   margin-bottom: 10%;
 `;
 
+const DescWrapper2 = styled.div`
+  font-size: 1.5rem;
+  text-align: center;
+  color:white;
+`;
+
 function App() {
   return (
     <Container>
@@ -58,6 +64,7 @@ function App() {
       <Container style={{'margin':'0 3%'}}>
           <CustomizePassword/>
       </Container>
+      <DescWrapper2>Copyright&#169; 2025 Hudson Lois</DescWrapper2>
     </Container>
   );
 }
