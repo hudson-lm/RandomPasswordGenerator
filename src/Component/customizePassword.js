@@ -73,19 +73,35 @@ const Right = styled.div`
     position: absolute;
     top: 10%;
     right: 5%;
-    height: 100px;
+    min-height: 100px;
+    max-height: 200px;
     float: right;
+    overflow: auto;
+    word-wrap: break-word;
     border: 5px solid brown;
 `;
 
 const PasswordSpace = styled.div`
     font-size: 3rem;
+    word-break: break-all;
 `;
 
 const digits = '0123456789'.split('');
 const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?'.split('');
+
+const CopyButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  &:hover {
+    color: #61dafb;
+  }
+`;
 
 
 function CustomizePassword() {
