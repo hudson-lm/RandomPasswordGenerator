@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import { FaCopy, FaCheck } from 'react-icons/fa';
 
 const Container = styled.div`
   color: white;
@@ -105,6 +106,34 @@ const CopyButton = styled.button`
 
 
 function CustomizePassword() {
+
+  const [isCopied, setIsCopied] = useState(false);
+
+const handleCopyToClipboard = (e) => {
+  e.preventDefault();
+  if (!generatePassword) return;
+  
+  navigator.clipboard.writeText(generatePassword)
+    .then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 1000);
+    })
+    .catch(err => {
+      console.error('Failed to copy password: ', err);
+      const textArea = document.createElement('textarea');
+      textArea.value = generatePassword;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      } catch (err) {
+        console.error('Fallback copy failed: ', err);
+      }
+      document.body.removeChild(textArea);
+    });
+};
 
   const [isLettersChecked, setIsLettersChecked] = useState(false);
   const [isNumbersChecked, setIsNumbersChecked] = useState(false);
@@ -238,9 +267,16 @@ function CustomizePassword() {
             <Label htmlFor="specialChars">Special Characters</Label>
           </CheckboxWrapper>
 
-        <Right>
-          <PasswordSpace>{generatePassword}</PasswordSpace>
-        </Right>
+          <Right>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <PasswordSpace>{generatePassword}</PasswordSpace>
+              {generatePassword && (
+              <CopyButton onClick={handleCopyToClipboard} title="Copy to clipboard">
+                {isCopied ? <FaCheck color="green" /> : <FaCopy />}
+              </CopyButton>
+              )}
+            </div>
+          </Right>
 
         <Label style={{'padding-top':'5%'}}>
             Password Length:
